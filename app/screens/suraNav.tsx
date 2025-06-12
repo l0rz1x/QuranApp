@@ -1,12 +1,14 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+  
 type Sura = {
     pageNumber: number;
     name: string;
     cuz: string;
 };
 
-export default function SuraNav() {
+export default function SuraNav( { navigation }: { navigation: any }) {
     const suras: Sura[] = [
         { pageNumber: 1, name: "Al-Fatiha", cuz: "1" },
         { pageNumber: 2, name: "Al-Baqarah", cuz: "1" },
@@ -36,7 +38,7 @@ export default function SuraNav() {
     const renderItem = ({ item }: { item: Sura }) => { 
         return (
             <View style={{ padding: 20 , borderBottomWidth: 2, borderColor: '#ccc' }}>
-                <Pressable onPress={() => console.log(`Selected: ${item.name}`)}>
+                <Pressable onPress={() => console.log(`Navigating to Sura: ${item.name}`)}>
                 <Text style={{ fontSize: 18 }}>{item.name}</Text>
                 <Text style={{ fontSize: 14 }}>Page: {item.pageNumber}</Text>
                 <Text style={{ fontSize: 14 }}>cuz: {item.cuz}</Text>
@@ -46,7 +48,7 @@ export default function SuraNav() {
     };
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => console.log('Back pressed')}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.backward}> 
                 <AntDesign name="arrowright" size={48} color="white" /> 
             </View>

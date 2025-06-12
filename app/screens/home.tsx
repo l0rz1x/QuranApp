@@ -3,21 +3,15 @@ import Feather from '@expo/vector-icons/Feather';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Fontisto from '@expo/vector-icons/Fontisto';
 import React, { useState } from "react";
-import { Dimensions, FlatList, Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import { Dimensions, FlatList, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 const { width, height } = Dimensions.get('window');
 const triangleWidth = width / 1.7;
 const footTiangleWidth = width / 2.5;
 const triangleHeight = height / 9;
 const footTriangleHeight = height / 11;
-const suras = [
-  { pageNumber: 1, SurahName: "Al-Fatiha", chapter: "Chapter 1", textField: "الفاتحة" },
-  { pageNumber: 2, SurahName: "Al-Baqarah", chapter: "Chapter 2", textField: "البقرة" },
-  { pageNumber: 3, SurahName: "Al-Imran", chapter: "Chapter 3", textField: "ال عمران" },
-  { pageNumber: 4, SurahName: "An-Nisa", chapter: "Chapter 4", textField: "النساء" },
-  { pageNumber: 300, SurahName: "Al-Ma'idah", chapter: "Chapter 5", textField: "المائدة" },
-]
-export default function Main() {
+
+export default function Home({ navigation }: { navigation: any }) {
 const [isTabVisible, setIsTabVisible] = useState(false);
 type Sura = {
   pageNumber: number;
@@ -25,7 +19,37 @@ type Sura = {
   chapter: string;
   textField: string;
 };
-
+const suras: Sura[] = [
+  { pageNumber: 1, SurahName: "Al-Fatiha", chapter: "Chapter 1", textField: "الفاتحة" },
+  { pageNumber: 2, SurahName: "Al-Baqarah", chapter: "Chapter 2", textField: "البقرة" },
+  { pageNumber: 70, SurahName: "Al-Imran", chapter: "Chapter 3", textField: "ال عمران" },
+  { pageNumber: 98, SurahName: "An-Nisa", chapter: "Chapter 4", textField: "النساء" },
+  { pageNumber: 114, SurahName: "Al-Ma'idah", chapter: "Chapter 5", textField: "المائدة" },
+  { pageNumber: 121, SurahName: "Al-An'am", chapter: "Chapter 6", textField: "الانعام" },
+  { pageNumber: 135, SurahName: "Al-A'raf", chapter: "Chapter 7", textField: "الاعراف" },
+  { pageNumber: 143, SurahName: "Al-Anfal", chapter: "Chapter 8", textField: "الانفال" },
+  { pageNumber: 153, SurahName: "At-Tawbah", chapter: "Chapter 9", textField: "التوبة" },
+  { pageNumber: 160, SurahName: "Yunus", chapter: "Chapter 10", textField: "يونس" },
+  { pageNumber: 186, SurahName: "Hud", chapter: "Chapter 11", textField: "هود" },
+  { pageNumber: 192, SurahName: "Yusuf", chapter: "Chapter 12", textField: "يوسف" },
+  { pageNumber: 200, SurahName: "Ar-Ra'd", chapter: "Chapter 13", textField: "الرعد" },
+  { pageNumber: 210, SurahName: "Ibrahim", chapter: "Chapter 14", textField: "ابراهيم" },
+  { pageNumber: 220, SurahName: "Al-Hijr", chapter: "Chapter 15", textField: "الحجر" },
+  { pageNumber: 230, SurahName: "An-Nahl", chapter: "Chapter 16", textField: "النحل" },
+  { pageNumber: 240, SurahName: "Al-Isra", chapter: "Chapter 17", textField: "الاسراء" },
+  { pageNumber: 250, SurahName: "Al-Kahf", chapter: "Chapter 18", textField: "الكهف" },
+  { pageNumber: 260, SurahName: "Maryam", chapter: "Chapter 19", textField: "مريم" },
+  { pageNumber: 270, SurahName: "Ta-Ha", chapter: "Chapter 20", textField: "طه" },
+  { pageNumber: 280, SurahName: "Al-Anbiya", chapter: "Chapter 21", textField: "الانبياء" },
+  { pageNumber: 290, SurahName: "Al-Hajj", chapter: "Chapter 22", textField: "الحج" },
+  { pageNumber: 300, SurahName: "Al-Mu'minun", chapter:"Chapter 23", textField:"المؤمنون"},
+].map((sura) => ({
+  ...sura,
+  pageNumber: sura.pageNumber,
+  SurahName: sura.SurahName,
+  chapter: sura.chapter,
+  textField: sura.textField,
+}));
 const renderItem = ({ item }: { item: Sura }) => (
     <View style={styles.pageContainer}>
       <Pressable onPress={() => setIsTabVisible(true)} style={{ flex: 1 }}>
@@ -56,6 +80,7 @@ const renderItem = ({ item }: { item: Sura }) => (
   return (
     
   <View style={styles.container}>
+    
     <FlatList 
         data={suras}
             keyExtractor={(item) => item.pageNumber.toString()}
@@ -65,19 +90,23 @@ const renderItem = ({ item }: { item: Sura }) => (
             showsHorizontalScrollIndicator={false}
         
     />
+
+
       <Modal visible={isTabVisible} transparent={true}  animationType="fade">
-        
         <SafeAreaView style={tabStyles.container}>
-                    
                     <View style={tabStyles.head}>
                         <View style={tabStyles.triangleLeft} /> 
                         <View style={tabStyles.triangleRight} />
+                      <TouchableOpacity>
                         <View style={tabStyles.settings}>
                           <Feather name="settings" size={36} color="black" />
                         </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("SuraNav")}>
                         <View style={tabStyles.options}>
                          <FontAwesome name="navicon" size={36} color="black" />
                         </View>
+      	                </TouchableOpacity>
                     </View>
                     <Pressable onPress={() => setIsTabVisible(false)} style={tabStyles.container}>
                     </Pressable>
@@ -88,17 +117,21 @@ const renderItem = ({ item }: { item: Sura }) => (
                         <View style={tabStyles.FtriangleRight} />
                         <View style={tabStyles.squareLeft} />
                         <View style={tabStyles.squareRight} />
+                        <TouchableOpacity>
                         <View style={tabStyles.more}>
                           <AntDesign name="appstore-o" size={36} color="black" />
                         </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
                         <View style={tabStyles.search}>
                           <Fontisto name="search" size={36} color="black" />
                         </View>
+                        </TouchableOpacity>
                     </View>
                 </SafeAreaView>
-                
-                    
       </Modal>
+
+
     </View>
     
   );
@@ -156,7 +189,7 @@ const tabStyles = StyleSheet.create({
         height: 50,
         backgroundColor: 'red',
         position: 'absolute',
-        left: 10,
+        right: 145,
         top: 10,  
         zIndex: 2, 
         alignItems: 'center',
@@ -192,7 +225,7 @@ const tabStyles = StyleSheet.create({
         backgroundColor: 'red',
         width: 50,
         height: 50,
-        right: 10, 
+        left: 145, 
         top: 10,  
         zIndex: 2,
         alignItems: 'center',
