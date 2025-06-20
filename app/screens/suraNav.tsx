@@ -7,7 +7,7 @@ type Sura = {
     name: string;
     cuz: string;
 };
-
+// find how to navigate from this screen to flatList on home screen
 export default function SuraNav( { navigation }: { navigation: any }) {
     const suras: Sura[] = [
         { pageNumber: 1, name: "Al-Fatiha", cuz: "1" },
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         borderRadius: 15,
         justifyContent: 'center',
-        margin: 20,
+        margin: 15,
         right: 0,
         zIndex: 1,
     },

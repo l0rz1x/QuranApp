@@ -122,7 +122,7 @@ const renderItem = ({ item }: { item: Sura }) => (
                           <AntDesign name="appstore-o" size={36} color="black" />
                         </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("Search")}>
                         <View style={tabStyles.search}>
                           <Fontisto name="search" size={36} color="black" />
                         </View>
