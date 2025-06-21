@@ -97,7 +97,7 @@ const renderItem = ({ item }: { item: Sura }) => (
                     <View style={tabStyles.head}>
                         <View style={tabStyles.triangleLeft} /> 
                         <View style={tabStyles.triangleRight} />
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
                         <View style={tabStyles.settings}>
                           <Feather name="settings" size={36} color="black" />
                         </View>
