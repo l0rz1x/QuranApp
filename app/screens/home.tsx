@@ -5,6 +5,7 @@ import Fontisto from '@expo/vector-icons/Fontisto';
 import React, { useState } from "react";
 import { Dimensions, FlatList, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { surah } from '../api/surah_data';
 const { width, height } = Dimensions.get('window');
 const triangleWidth = width / 1.7;
 const footTiangleWidth = width / 2.5;
@@ -12,78 +13,44 @@ const triangleHeight = height / 9;
 const footTriangleHeight = height / 11;
 
 export default function Home({ navigation }: { navigation: any }) {
-const [isTabVisible, setIsTabVisible] = useState(false);
-type Sura = {
-  pageNumber: number;
-  SurahName: string;
-  chapter: string;
-  textField: string;
-};
-const suras: Sura[] = [
-  { pageNumber: 1, SurahName: "Al-Fatiha", chapter: "Chapter 1", textField: "الفاتحة" },
-  { pageNumber: 2, SurahName: "Al-Baqarah", chapter: "Chapter 2", textField: "البقرة" },
-  { pageNumber: 70, SurahName: "Al-Imran", chapter: "Chapter 3", textField: "ال عمران" },
-  { pageNumber: 98, SurahName: "An-Nisa", chapter: "Chapter 4", textField: "النساء" },
-  { pageNumber: 114, SurahName: "Al-Ma'idah", chapter: "Chapter 5", textField: "المائدة" },
-  { pageNumber: 121, SurahName: "Al-An'am", chapter: "Chapter 6", textField: "الانعام" },
-  { pageNumber: 135, SurahName: "Al-A'raf", chapter: "Chapter 7", textField: "الاعراف" },
-  { pageNumber: 143, SurahName: "Al-Anfal", chapter: "Chapter 8", textField: "الانفال" },
-  { pageNumber: 153, SurahName: "At-Tawbah", chapter: "Chapter 9", textField: "التوبة" },
-  { pageNumber: 160, SurahName: "Yunus", chapter: "Chapter 10", textField: "يونس" },
-  { pageNumber: 186, SurahName: "Hud", chapter: "Chapter 11", textField: "هود" },
-  { pageNumber: 192, SurahName: "Yusuf", chapter: "Chapter 12", textField: "يوسف" },
-  { pageNumber: 200, SurahName: "Ar-Ra'd", chapter: "Chapter 13", textField: "الرعد" },
-  { pageNumber: 210, SurahName: "Ibrahim", chapter: "Chapter 14", textField: "ابراهيم" },
-  { pageNumber: 220, SurahName: "Al-Hijr", chapter: "Chapter 15", textField: "الحجر" },
-  { pageNumber: 230, SurahName: "An-Nahl", chapter: "Chapter 16", textField: "النحل" },
-  { pageNumber: 240, SurahName: "Al-Isra", chapter: "Chapter 17", textField: "الاسراء" },
-  { pageNumber: 250, SurahName: "Al-Kahf", chapter: "Chapter 18", textField: "الكهف" },
-  { pageNumber: 260, SurahName: "Maryam", chapter: "Chapter 19", textField: "مريم" },
-  { pageNumber: 270, SurahName: "Ta-Ha", chapter: "Chapter 20", textField: "طه" },
-  { pageNumber: 280, SurahName: "Al-Anbiya", chapter: "Chapter 21", textField: "الانبياء" },
-  { pageNumber: 290, SurahName: "Al-Hajj", chapter: "Chapter 22", textField: "الحج" },
-  { pageNumber: 300, SurahName: "Al-Mu'minun", chapter:"Chapter 23", textField:"المؤمنون"},
-].map((sura) => ({
-  ...sura,
-  pageNumber: sura.pageNumber,
-  SurahName: sura.SurahName,
-  chapter: sura.chapter,
-  textField: sura.textField,
-}));
-const renderItem = ({ item }: { item: Sura }) => (
+  const [isTabVisible, setIsTabVisible] = useState(false);
+  
+const renderItem = () => {
+  return (
     <View style={styles.pageContainer}>
       <Pressable onPress={() => setIsTabVisible(true)} style={{ flex: 1 }}>
-      <View style= {styles.child1}>
-        <Text style= {styles.surahName}>
-            {item.SurahName}
-        </Text>
+        <View style={styles.child1}>
+          <Text style={styles.surahName}>
+            al-Fatiha
+          </Text>
         </View>
-      <View style= {styles.child2}>
-        <Text style= {styles.chapter}>
-            {item.chapter}
-        </Text>
+        <View style={styles.child2}>
+          <Text style={styles.chapter}>
+            4
+          </Text>
         </View>
-      <View style= {styles.child3}>
-        <Text style= {styles.textField}>
-            {item.textField}
-        </Text>
+        <View style={styles.child3}>
+          <Text style={styles.textField}>
+            al-Fatiha
+          </Text>
         </View>
-      <View style= {styles.child4}>
-        <Text style= {styles.pageNumber}>
-            {item.pageNumber}
-        </Text>
+        <View style={styles.child4}>
+          <Text style={styles.pageNumber}>
+            1
+          </Text>
         </View>
       </Pressable>
     </View>
-);
+  );
+};
 
   return (
     
   <View style={styles.container}>
     
     <FlatList 
-        data={suras}
-            keyExtractor={(item) => item.pageNumber.toString()}
+        data={surah}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={renderItem}
             horizontal
             pagingEnabled
